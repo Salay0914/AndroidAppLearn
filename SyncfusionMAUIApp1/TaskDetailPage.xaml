@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SyncfusionMAUIApp1.TaskDetailPage"
+             Title="任务详情">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label x:Name="TitleLabel" FontSize="20" FontAttributes="Bold" />
+            <Label x:Name="ProgressLabel" />
+            <CollectionView x:Name="MarkersView" HeightRequest="220">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="8" Spacing="8">
+                            <Label Text="{Binding StatusGlyph}" WidthRequest="28" />
+                            <Label Text="{Binding MarkerId}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="模拟 DB01 读标（自动匹配）" Style="{StaticResource OutdoorPrimaryButton}" Clicked="OnSimulateDb01Clicked" />
+            <Button Text="NFC / 扫码录入" Style="{StaticResource OutdoorSecondaryButton}" Clicked="OnScanClicked" />
+            <Button Text="拍照记录" Style="{StaticResource OutdoorSecondaryButton}" Clicked="OnPhotoClicked" />
+            <Button Text="提交巡检（校验全部点位）" Style="{StaticResource OutdoorPrimaryButton}" Clicked="OnSubmitClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

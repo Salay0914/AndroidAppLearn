@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SyncfusionMAUIApp1.CableArchiveDetailPage"
+             Title="档案详情">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="10">
+            <Label x:Name="MarkerLabel" FontSize="20" FontAttributes="Bold" />
+            <Label x:Name="LocationLabel" />
+            <Label x:Name="DepthLabel" />
+            <Label x:Name="MaterialLabel" />
+            <Label x:Name="DiameterLabel" />
+            <Label x:Name="OwnerLabel" />
+            <Label x:Name="NotesLabel" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

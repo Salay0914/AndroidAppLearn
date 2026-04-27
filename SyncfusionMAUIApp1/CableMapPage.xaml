@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
+             x:Class="SyncfusionMAUIApp1.CableMapPage"
+             Title="地图">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="当前位置（GPS）" FontAttributes="Bold" FontSize="18" />
+            <Label x:Name="GpsLabel" FontSize="15" />
+            <Button Text="刷新定位" Style="{StaticResource OutdoorSecondaryButton}" Clicked="OnRefreshGpsClicked" />
+            <Label Text="业务图层说明" FontAttributes="Bold" Margin="0,12,0,0" />
+            <Label Text="此处将叠加电缆路径、电子标识器埋设点（含深度）与故障点；离线瓦片/合规底图由项目另行选型后接入 Syncfusion Maps 或其它地图 SDK。" />
+            <Label Text="示意：下方为 Syncfusion 地图控件占位（演示数据）" Margin="0,12,0,0" FontAttributes="Bold" />
+            <map:SfMaps HeightRequest="320">
+                <map:SfMaps.Layer>
+                    <map:MapShapeLayer ShapesSource="https://cdn.syncfusion.com/maps/map-data/australia.json"
+                                         ShapeDataField="STATE_NAME"
+                                         ShowDataLabels="False">
+                        <map:MapShapeLayer.Markers>
+                            <map:MapMarkerCollection>
+                                <map:MapMarker x:Name="DemoMarker" Latitude="-33.8688" Longitude="151.2093" />
+                            </map:MapMarkerCollection>
+                        </map:MapShapeLayer.Markers>
+                    </map:MapShapeLayer>
+                </map:SfMaps.Layer>
+            </map:SfMaps>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

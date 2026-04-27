@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
+             x:Class="SF_HandheldTerminal.MapsFeatures" Title="Maps"
+ 			 xmlns:local="clr-namespace:SF_HandheldTerminal">
+    <Grid>
+        <Grid.BindingContext>
+            <local:MapsViewModel />
+        </Grid.BindingContext>
+        <map:SfMaps>
+            <map:SfMaps.Layer>
+                <map:MapShapeLayer x:Name="layer"
+                               ShapesSource="https://cdn.syncfusion.com/maps/map-data/australia.json"
+                               ShapeDataField="STATE_NAME"
+                               DataSource="{Binding Data}"
+                               PrimaryValuePath="State" 
+                               ShowDataLabels="True"
+                               ShowShapeTooltip="True"
+                               ShapeColorValuePath="ID">
+                    <!--Set Data Label-->
+                    <map:MapShapeLayer.DataLabelSettings>
+                        <map:MapDataLabelSettings DataLabelPath="StateCode" >
+						<map:MapDataLabelSettings.DataLabelStyle>
+							<map:MapLabelStyle 	FontSize="12"
+												TextColor="White"
+											    FontAttributes="Italic" />
+							</map:MapDataLabelSettings.DataLabelStyle>
+							</map:MapDataLabelSettings>
+                    </map:MapShapeLayer.DataLabelSettings>
+                    <!--Set Color mapping-->
+                    <map:MapShapeLayer.ColorMappings>
+                        <map:EqualColorMapping Color="#d0b800"
+                                           Value="1"
+                                           Text="NSW" />
+                        <map:EqualColorMapping Color="#00d5cf"
+                                           Value="2"
+                                           Text="Queensland" />
+                        <map:EqualColorMapping Color="#00008B"
+                                           Value="3"
+                                           Text="Victoria" />
+                        <map:EqualColorMapping Color="#4f93d8"
+                                           Value="4"
+                                           Text="Tasmania" />
+                        <map:EqualColorMapping Color="#6245a2"
+                                           Value="5"
+                                           Text="WA" />
+                        <map:EqualColorMapping Color="#006400"
+                                           Value="6"
+                                           Text="SA" />
+                        <map:EqualColorMapping Color="#ff4e42"
+                                           Value="7"
+                                           Text="NT" />
+                    </map:MapShapeLayer.ColorMappings>
+                    <!--Set Markers-->
+                    <map:MapShapeLayer.Markers>
+                        <map:MapMarkerCollection>
+                            <map:MapMarker x:Name="Adelaide"
+                                       Latitude="-34.928497"
+                                       Longitude="138.600739" />
+                        </map:MapMarkerCollection>
+                    </map:MapShapeLayer.Markers>
+                    <!--Set Legend-->
+                    <map:MapShapeLayer.Legend>
+                        <map:MapLegend SourceType="Shape"
+                                   Placement="Bottom" >
+								     <map:MapLegend.TextStyle>
+									  <map:MapLabelStyle FontSize="12"
+														 TextColor="Red"
+														 FontFamily="Times"
+														 FontAttributes="Italic" />
+									  </map:MapLegend.TextStyle>
+						</map:MapLegend>
+                    </map:MapShapeLayer.Legend>
+                </map:MapShapeLayer>
+            </map:SfMaps.Layer>
+        </map:SfMaps>
+    </Grid>
+</ContentPage>

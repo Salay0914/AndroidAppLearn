@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SyncfusionMAUIApp1.CableArchivePage"
+             Title="电缆档案">
+    <RefreshView x:Name="Refresh" Refreshing="OnRefreshing">
+        <CollectionView x:Name="ArchivesView" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Padding="16,10" Spacing="4">
+                        <Label Text="{Binding MarkerId}" FontAttributes="Bold" FontSize="16" />
+                        <Label Text="{Binding Location}" />
+                        <Label Text="{Binding BurialDepthMeters, StringFormat='埋深：{0:F2} m'}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

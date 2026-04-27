@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SyncfusionMAUIApp1.LoginPage"
+             Title="登录"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+            <Label Text="电缆智能巡检" Style="{StaticResource OutdoorTitleLabel}" />
+            <Label Text="LYHR-803S 现场作业终端" Style="{StaticResource OutdoorCaptionLabel}" />
+            <Entry x:Name="UserEntry" Placeholder="用户名" AutomationId="UserEntry" Style="{StaticResource OutdoorEntry}" />
+            <Entry x:Name="PasswordEntry" Placeholder="密码" IsPassword="True" AutomationId="PasswordEntry" Style="{StaticResource OutdoorEntry}" />
+            <Button Text="登录" Style="{StaticResource OutdoorPrimaryButton}" Clicked="OnLoginClicked" />
+            <Button Text="生物识别登录（需先密码登录一次）" Style="{StaticResource OutdoorSecondaryButton}" Clicked="OnBiometricClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

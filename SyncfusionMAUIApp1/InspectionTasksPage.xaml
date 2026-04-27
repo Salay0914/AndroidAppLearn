@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SyncfusionMAUIApp1.InspectionTasksPage"
+             Title="巡检任务">
+    <RefreshView x:Name="Refresh" Refreshing="OnRefreshing">
+        <CollectionView x:Name="TasksView" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="16,12" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Title}" FontSize="18" FontAttributes="Bold" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding PlannedDateUtc, StringFormat='计划：{0:yyyy-MM-dd}'}" />
+                        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Text="›" VerticalOptions="Center" FontSize="28" TextColor="{StaticResource Gray500}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SyncfusionMAUIApp1.SyncSettingsPage"
+             Title="同步与设置">
+    <VerticalStackLayout Padding="16" Spacing="14">
+        <Label Text="车站主机同步" FontAttributes="Bold" FontSize="18" />
+        <Label Text="弱网时写入本地 Outbox，网络恢复后由同步引擎重试。" />
+        <Button Text="立即处理离线队列" Style="{StaticResource OutdoorPrimaryButton}" Clicked="OnSyncClicked" />
+        <Label x:Name="SyncResultLabel" />
+        <BoxView HeightRequest="1" Color="{StaticResource Gray200}" Margin="0,8" />
+        <Label Text="会话" FontAttributes="Bold" FontSize="18" />
+        <Button Text="退出登录" Style="{StaticResource OutdoorSecondaryButton}" Clicked="OnLogoutClicked" />
+    </VerticalStackLayout>
+</ContentPage>

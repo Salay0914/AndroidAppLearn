@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SF_HandheldTerminal.Views.Main.MainTabPage"
+             xmlns:tabView="clr-namespace:Syncfusion.Maui.Toolkit.TabView;assembly=Syncfusion.Maui.Toolkit"
+             Title="电缆监测">
+
+    <ContentPage.Content>
+        <!-- 使用 Resources/Images 下 SVG（矢量），由 MAUI 生成多分辨率；默认 TabBarHeight=48 易裁切中文标题，需加高 -->
+        <tabView:SfTabView x:Name="RootTabView"
+                           VerticalOptions="Fill"
+                           HorizontalOptions="Fill"
+                           TabBarPlacement="Bottom"
+                           IndicatorPlacement="Top"
+                           TabBarHeight="72"
+                           TabHeaderPadding="0,2,0,4">
+            <tabView:SfTabView.Items>
+                <tabView:SfTabItem Header="概览"
+                                   ImageSource="tab_overview.png"
+                                   ImageSize="24"
+                                   ImageTextSpacing="2"
+                                   FontSize="12"
+                                   FontAutoScalingEnabled="False">
+                    <tabView:SfTabItem.Content>
+                        <Grid Padding="16"
+                              BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}">
+                            <Label Text="概览（占位）&#10;后续可接入实时数据、告警摘要等。"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"
+                                   FontFamily="Roboto-Regular" />
+                        </Grid>
+                    </tabView:SfTabItem.Content>
+                </tabView:SfTabItem>
+
+                <tabView:SfTabItem Header="监测"
+                                   ImageSource="tab_monitor.png"
+                                   ImageSize="24"
+                                   ImageTextSpacing="2"
+                                   FontSize="12"
+                                   FontAutoScalingEnabled="False">
+                    <tabView:SfTabItem.Content>
+                        <Grid Padding="16"
+                              BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}">
+                            <Label Text="监测（占位）&#10;后续可接入通道列表、曲线等。"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"
+                                   FontFamily="Roboto-Regular" />
+                        </Grid>
+                    </tabView:SfTabItem.Content>
+                </tabView:SfTabItem>
+
+                <tabView:SfTabItem x:Name="SettingsTabItem"
+                                   Header="设置"
+                                   ImageSource="tab_settings.png"
+                                   ImageSize="24"
+                                   ImageTextSpacing="2"
+                                   FontSize="12"
+                                   FontAutoScalingEnabled="False" />
+            </tabView:SfTabView.Items>
+        </tabView:SfTabView>
+    </ContentPage.Content>
+</ContentPage>

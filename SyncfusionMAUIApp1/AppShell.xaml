@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SyncfusionMAUIApp1.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SyncfusionMAUIApp1"
+    Shell.FlyoutBehavior="Flyout"
+    Title="电缆智能巡检">
+
+    <FlyoutItem Title="巡检任务" Route="tasksFlyout">
+        <ShellContent Title="今日任务" ContentTemplate="{DataTemplate local:InspectionTasksPage}" Route="InspectionTasks" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="读标与信号" Route="scanFlyout">
+        <ShellContent Title="DB01 辅助" ContentTemplate="{DataTemplate local:ScanSignalPage}" Route="ScanSignal" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="电缆档案" Route="archiveFlyout">
+        <ShellContent Title="档案列表" ContentTemplate="{DataTemplate local:CableArchivePage}" Route="CableArchive" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="地图" Route="mapFlyout">
+        <ShellContent Title="位置与埋点" ContentTemplate="{DataTemplate local:CableMapPage}" Route="CableMap" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="同步与设置" Route="syncFlyout">
+        <ShellContent Title="同步" ContentTemplate="{DataTemplate local:SyncSettingsPage}" Route="SyncSettings" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Syncfusion 演示" Route="demoFlyout">
+        <ShellContent Title="DataGrid" ContentTemplate="{DataTemplate local:DataGridFeatures}" Route="DataGridFeatures" />
+        <ShellContent Title="Smart DataGrid" ContentTemplate="{DataTemplate local:SmartDataGridFeatures}" Route="SmartDataGridFeatures" />
+        <ShellContent Title="TreeView" ContentTemplate="{DataTemplate local:TreeViewFeatures}" Route="TreeViewFeatures" />
+        <ShellContent Title="Cartesian Charts" ContentTemplate="{DataTemplate local:CartesianChartsFeatures}" Route="CartesianChartsFeatures" />
+        <ShellContent Title="Circular Charts" ContentTemplate="{DataTemplate local:CircularChartsFeatures}" Route="CircularChartsFeatures" />
+        <ShellContent Title="Maps (演示)" ContentTemplate="{DataTemplate local:MapsFeatures}" Route="MapsFeatures" />
+    </FlyoutItem>
+</Shell>

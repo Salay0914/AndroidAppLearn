@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="SyncfusionMAUIApp1.ScanSignalPage"
+             Title="读标与信号">
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="12" RowSpacing="10">
+        <HorizontalStackLayout Grid.Row="0" Spacing="10">
+            <Button x:Name="StartBtn" Text="开始模拟" Style="{StaticResource OutdoorPrimaryButton}" Clicked="OnStartClicked" />
+            <Button x:Name="StopBtn" Text="停止" Style="{StaticResource OutdoorSecondaryButton}" Clicked="OnStopClicked" IsEnabled="False" />
+        </HorizontalStackLayout>
+        <VerticalStackLayout Grid.Row="1" Spacing="6">
+            <Label x:Name="ReadingLabel" FontSize="16" />
+            <ProgressBar x:Name="StrengthBar" Progress="0" />
+        </VerticalStackLayout>
+        <chart:SfCartesianChart Grid.Row="3" x:Name="Chart">
+            <chart:SfCartesianChart.XAxes>
+                <chart:NumericalAxis />
+            </chart:SfCartesianChart.XAxes>
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis Minimum="0" Maximum="100" />
+            </chart:SfCartesianChart.YAxes>
+            <chart:LineSeries ItemsSource="{Binding Points}"
+                              XBindingPath="Index"
+                              YBindingPath="Rssi"
+                              ShowDataLabels="False" />
+        </chart:SfCartesianChart>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:treeview="clr-namespace:Syncfusion.Maui.TreeView;assembly=Syncfusion.Maui.TreeView"
+             xmlns:treeviewengine="clr-namespace:Syncfusion.TreeView.Engine;assembly=Syncfusion.Maui.TreeView"
+             Title="TreeView"
+             x:Class="SyncfusionMAUIApp1.TreeViewFeatures" >
+    <ContentPage.Content>
+        <treeview:SfTreeView x:Name="treeView">
+           <treeview:SfTreeView.Nodes>
+              <treeviewengine:TreeViewNode Content="RootNode" IsExpanded="True">
+                <treeviewengine:TreeViewNode.ChildNodes>
+                   <treeviewengine:TreeViewNode Content="ChildNode"/>
+                </treeviewengine:TreeViewNode.ChildNodes>
+              </treeviewengine:TreeViewNode>
+           </treeview:SfTreeView.Nodes>
+        </treeview:SfTreeView>
+    </ContentPage.Content>
+</ContentPage>
