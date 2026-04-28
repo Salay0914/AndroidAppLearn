@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SF_HandheldTerminal.Views.Dashboard.Overview"
+             xmlns:listView="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
+             xmlns:controls="clr-namespace:SF_HandheldTerminal.Controls"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:local="clr-namespace:SF_HandheldTerminal"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:segmentedControl="clr-namespace:Syncfusion.Maui.Toolkit.SegmentedControl;assembly=Syncfusion.Maui.Toolkit"
+             Title="Health Care">
+    <ContentPage.BindingContext>
+        <local:OverviewViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid RowDefinitions="{OnPlatform WinUI='*', MacCatalyst='*'}" VerticalOptions="{OnPlatform Default= 'FillAndExpand'}" ColumnDefinitions="*" HorizontalOptions="Fill" Background="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}">
+                <ScrollView Grid.Row="{OnPlatform WinUI='0', MacCatalyst='0'}">
+                    <Grid ColumnDefinitions="{OnPlatform WinUI='Auto, 3*', MacCatalyst='Auto, 2*'}" RowDefinitions="*" VerticalOptions="Fill">
+
+                        <Grid x:DataType="local:OverviewViewModel" Grid.Column="{OnPlatform WinUI='2',MacCatalyst='2'}" Grid.Row="{OnPlatform Android='0', iOS='0'}" VerticalOptions="Fill" HorizontalOptions="{OnPlatform WinUI=End, MacCatalyst=End, Android=Start}" Margin="{OnPlatform WinUI='0,0,10,0', MacCatalyst='0,0,10,0'}">
+                            <BoxView HorizontalOptions="Start" VerticalOptions="Fill" Color="{AppThemeBinding Light={DynamicResource SeparatorColorLight}, Dark={DynamicResource SeparatorColorDark}}" />
+                            <Grid RowDefinitions="{OnPlatform WinUI='*,*',MacCatalyst='Auto,*', Android='Auto,*', iOS='Auto,*'}" RowSpacing="0">
+                                <Grid Grid.Row="0" RowDefinitions="{OnPlatform WinUI='*,*', MacCatalyst='*,*'}">
+                                    <HorizontalStackLayout Grid.Row="0" VerticalOptions="Start" IsVisible="{OnPlatform Android=False, iOS=False}">
+                                        <Label Text="Tracking" FontSize="22" FontFamily="Roboto-Regular" TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}" HeightRequest="28" Margin="16,16,0,16"></Label>
+                                    </HorizontalStackLayout>
+                                    <Grid Grid.Row="1" RowDefinitions="*,*" ColumnDefinitions="*,*" HorizontalOptions="Fill" VerticalOptions="{OnPlatform WinUI='StartAndExpand',MacCatalyst='Start', Android='FillAndExpand', iOS='FillAndExpand'}" Margin="{OnPlatform WinUI='8,0,0,0',MacCatalyst='8,0,0,0', Android='0,16,0,0', iOS='0,16,0,0'}">
+                                        <Border  BindingContext="{Binding TrackingNutrientData[0]}" Grid.Row="0" Grid.Column="0" Margin='16,0,8,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="{OnPlatform Android=136, iOS=136}">
+                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="*" VerticalOptions="Fill">
+                                                <Grid Padding="0"  RowDefinitions="2*,1*,1*">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Color="#9F60FD" Offset="0" />
+                                                            <GradientStop Color="#D957BC" Offset="1" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+                                                    <Label Text="&#xe700;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
+                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25,iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
+                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                        <Border BindingContext="{Binding TrackingNutrientData[1]}" Grid.Row="0" Grid.Column="1" Margin='8,0,16,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="{OnPlatform Android=136, iOS=136}">
+                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="{OnPlatform WinUI='Auto',MacCatalyst='Auto', Android='*', iOS='*'}" VerticalOptions="Fill">
+                                                <Grid Padding="0"  RowDefinitions="Auto,Auto,Auto">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Color="#6DB0FF" Offset="0" />
+                                                            <GradientStop Color="#6957D9" Offset="1" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+                                                    <Label Text="&#xe704;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
+                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
+                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                        <Border BindingContext="{Binding TrackingNutrientData[2]}" Grid.Row="1" Grid.Column="0" Margin='16,0,8,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="{OnPlatform Android=136, iOS=136}">
+                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="{OnPlatform WinUI='Auto',MacCatalyst='Auto', Android='*', iOS='*'}" VerticalOptions="Fill">
+                                                <Grid Padding="0"  RowDefinitions="Auto,Auto,Auto">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Color="#FFAD4E" Offset="0" />
+                                                            <GradientStop Color="#D942B8" Offset="1" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+                                                    <Label Text="&#xe70a;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
+                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
+                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                        <Border BindingContext="{Binding TrackingNutrientData[3]}" Grid.Row="1" Grid.Column="1" Margin='8,0,16,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HeightRequest="{OnPlatform Android=136, iOS=136}" HorizontalOptions="Fill" VerticalOptions="Fill">
+                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="{OnPlatform WinUI='Auto',MacCatalyst='Auto', Android='*', iOS='*'}" VerticalOptions="Fill">
+                                                <Grid Padding="0"  RowDefinitions="Auto,Auto,Auto">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                            <GradientStop Color="#14E983" Offset="0" />
+                                                            <GradientStop Color="#0F9292" Offset="1" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+                                                    <Label Text="&#xe70b;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
+                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
+                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1" Margin="{OnPlatform WinUI='8,0,0,0',MacCatalyst='8,0,0,0'}">
+                                    <listView:SfListView Grid.Row="1" IsScrollingEnabled="False" ItemSize="80" ItemsSource="{Binding TrackingData}" SelectionMode="None">
+                                        <listView:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border x:DataType="local:HealthCareModel" HeightRequest="72" Stroke="{AppThemeBinding Light={DynamicResource SeparatorColorLight}, Dark={DynamicResource BackgroundColorDark}}" StrokeThickness="2" StrokeShape="RoundRectangle 4,4,4,4" BackgroundColor="{AppThemeBinding Dark={DynamicResource BackgroundColorDark}, Light={DynamicResource BackgroundColorLight}}" Margin="16,0,16,0">
+                                                    <Border.Shadow>
+                                                        <!-- First Shadow -->
+                                                        <Shadow Brush="#000000" Offset="0,1" Radius="3" Opacity="0.15" />
+                                                    </Border.Shadow>
+                                                    <Grid ColumnDefinitions="Auto,*">
+                                                        <BoxView BackgroundColor="{Binding BackgroundGradientStart}" CornerRadius="4,0,4,0" HorizontalOptions="Center" WidthRequest="4"  HeightRequest="72" />
+                                                        <Grid Grid.Column="1" RowDefinitions="*, *" ColumnDefinitions="*,Auto" VerticalOptions="Fill" HorizontalOptions="Fill" Margin="8,0,8,0">
+                                                            <Label Grid.Row="0" Grid.Column="0" LineHeight="1.5" CharacterSpacing="0.15" HorizontalTextAlignment="Start" Text="{Binding Category}" FontFamily="Roboto-Medium" Margin="0,10,0,0" />
+                                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding CategoryValue}" VerticalOptions="Center" HorizontalOptions="End" FontFamily="Roboto-Medium" LineHeight="1.5" CharacterSpacing="0.15" Margin="0,10,0,0" />
+                                                            <Label Grid.Row="1" Grid.Column="0" FontAttributes="None"  LineHeight="1.42857" TextColor="{AppThemeBinding Light={DynamicResource ContentTextColorLight}, Dark={DynamicResource ContentTextColorDark}}" CharacterSpacing="0.25" HorizontalTextAlignment="Start" Text="{Binding CategoryPercentage}" FontFamily="Roboto-Medium" Margin="0,0,0,10" />
+                                                            <Label Grid.Row="1" Grid.Column="1" FontAttributes="None" LineHeight="1.42857" Text="{Binding CategoryStage}" CharacterSpacing="0.25" HorizontalOptions="End" FontFamily="Roboto-Medium" Margin="0,0,0,10" TextColor="{Binding CategoryStageColor}" />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </listView:SfListView.ItemTemplate>
+                                    </listView:SfListView>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ScrollView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

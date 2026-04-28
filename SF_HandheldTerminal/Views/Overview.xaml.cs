@@ -1,8 +1,8 @@
 namespace SF_HandheldTerminal.Views.Dashboard
 {
-    public partial class HealthCare : ContentPage
+    public partial class Overview : ContentPage
     {
-        public HealthCare()
+        public Overview()
         {
             InitializeComponent();
         }
@@ -10,7 +10,7 @@ namespace SF_HandheldTerminal.Views.Dashboard
         private void OnChipSelectionChanging(object sender, Syncfusion.Maui.Core.Chips.SelectionChangedEventArgs e)
         {
             // Access the ViewModel and call the function
-            var viewModel = (HealthCareViewModel)BindingContext;
+            var viewModel = (OverviewViewModel)BindingContext;
             viewModel.ChipSelectionChanged(e);
         }
     }

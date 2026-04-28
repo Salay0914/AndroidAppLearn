@@ -4,13 +4,13 @@ using System.Text.Json;
 
 namespace SF_HandheldTerminal
 {
-    public class TravelPlannerViewModel
+    public class MonitoringViewModel
     {
         public ObservableCollection<Travel> TravelPlacesList { get; set; }
         public ObservableCollection<Travel> TopDestinationsList { get; set; }
         public ObservableCollection<Travel> BestPlacesList { get; set; }
 
-        public TravelPlannerViewModel()
+        public MonitoringViewModel()
         {
             TravelPlacesList = new ObservableCollection<Travel>();
             TopDestinationsList = new ObservableCollection<Travel>();

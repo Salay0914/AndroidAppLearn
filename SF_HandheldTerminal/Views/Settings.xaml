@@ -7,8 +7,8 @@
              xmlns:controls="clr-namespace:SF_HandheldTerminal.Controls">
    <ContentView.Content>
       <ScrollView>
-         <StackLayout Background="Transparent"
-                      Spacing="0">
+         <VerticalStackLayout BackgroundColor="Transparent"
+                              Spacing="0">
 
             <Grid RowDefinitions="Auto, Auto"
                   ColumnDefinitions="Auto, .8*, .2*"
@@ -367,7 +367,7 @@
                Text="Log out"
                Style="{DynamicResource FormsButtonStyle}"/>
 
-         </StackLayout>
+         </VerticalStackLayout>
       </ScrollView>
    </ContentView.Content>
 </ContentView>

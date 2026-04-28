@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace SF_HandheldTerminal
 {
-    public class HealthCareViewModel : BaseViewModel
+    public class OverviewViewModel : BaseViewModel
     {
         #region Field
 
@@ -57,9 +57,9 @@ namespace SF_HandheldTerminal
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance for the <see cref="HealthCareViewModel" /> class.
+        /// Initializes a new instance for the <see cref="OverviewViewModel" /> class.
         /// </summary>
-        public HealthCareViewModel()
+        public OverviewViewModel()
         {
             this.caloriesConsumedList = new ObservableCollection<CaloriesConsumedData>();
 

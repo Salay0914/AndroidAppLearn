@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SF_HandheldTerminal.Views.Catalog.TravelPlanner"
+             x:Class="SF_HandheldTerminal.Views.Catalog.Monitoring"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
              xmlns:rotator="clr-namespace:Syncfusion.Maui.Rotator;assembly=Syncfusion.Maui.Rotator"
              xmlns:listView="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
@@ -9,9 +9,9 @@
              xmlns:converter="clr-namespace:SF_HandheldTerminal.Converters"
              xmlns:local="clr-namespace:SF_HandheldTerminal"
              xmlns:model="clr-namespace:SF_HandheldTerminal.Models.Catalog"
-             x:DataType="local:TravelPlannerViewModel" Title="Travel Planner">
+             x:DataType="local:MonitoringViewModel" Title="Travel Planner">
     <ContentPage.BindingContext>
-        <local:TravelPlannerViewModel/>
+        <local:MonitoringViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>

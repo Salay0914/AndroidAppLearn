@@ -2,9 +2,9 @@ using Syncfusion.Maui.Toolkit.Buttons;
 
 namespace SF_HandheldTerminal.Views.Catalog
 {
-    public partial class TravelPlanner : ContentPage
+    public partial class Monitoring : ContentPage
     {
-        public TravelPlanner()
+        public Monitoring()
         {
             InitializeComponent();
         }

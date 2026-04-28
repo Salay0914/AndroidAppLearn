@@ -22,15 +22,7 @@
                                    FontSize="12"
                                    FontAutoScalingEnabled="False">
                     <tabView:SfTabItem.Content>
-                        <Grid Padding="16"
-                              BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}">
-                            <Label Text="概览（占位）&#10;后续可接入实时数据、告警摘要等。"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"
-                                   HorizontalTextAlignment="Center"
-                                   TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"
-                                   FontFamily="Roboto-Regular" />
-                        </Grid>
+                        <ContentView x:Name="OverviewContentHost" />
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
@@ -41,15 +33,7 @@
                                    FontSize="12"
                                    FontAutoScalingEnabled="False">
                     <tabView:SfTabItem.Content>
-                        <Grid Padding="16"
-                              BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}">
-                            <Label Text="监测（占位）&#10;后续可接入通道列表、曲线等。"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"
-                                   HorizontalTextAlignment="Center"
-                                   TextColor="{AppThemeBinding Light={DynamicResource SecondaryTextColorLight}, Dark={DynamicResource SecondaryTextColorDark}}"
-                                   FontFamily="Roboto-Regular" />
-                        </Grid>
+                        <ContentView x:Name="MonitorContentHost" />
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
