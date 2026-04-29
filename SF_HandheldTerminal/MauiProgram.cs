@@ -15,6 +15,7 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder.Services.AddSingleton<ILoginAuthService, DemoLoginAuthService>();
+        builder.Services.AddSingleton<IAppPermissionService, AppPermissionService>();
         builder
                 .ConfigureSyncfusionToolkit()
                 .UseMauiApp<App>()
