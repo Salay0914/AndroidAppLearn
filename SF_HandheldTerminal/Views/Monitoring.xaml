@@ -3,337 +3,440 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SF_HandheldTerminal.Views.Catalog.Monitoring"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:rotator="clr-namespace:Syncfusion.Maui.Rotator;assembly=Syncfusion.Maui.Rotator"
-             xmlns:listView="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
-             xmlns:syncEffectsView="clr-namespace:Syncfusion.Maui.Toolkit.EffectsView;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:tabView="clr-namespace:Syncfusion.Maui.Toolkit.TabView;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              xmlns:converter="clr-namespace:SF_HandheldTerminal.Converters"
+             xmlns:cable="clr-namespace:SF_HandheldTerminal.Models.Cable"
              xmlns:local="clr-namespace:SF_HandheldTerminal"
-             xmlns:model="clr-namespace:SF_HandheldTerminal.Models.Catalog"
-             x:DataType="local:MonitoringViewModel" Title="Travel Planner">
+             x:DataType="local:MonitoringViewModel"
+             BackgroundColor="{DynamicResource SurfacePage}"
+             Title="监测">
+
     <ContentPage.BindingContext>
-        <local:MonitoringViewModel/>
+        <local:MonitoringViewModel />
     </ContentPage.BindingContext>
+
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converter:BooleanToColorConverter x:Key="boolToColorConverter"/>
-            <converter:BooleanToStringConverter x:Key="boolToStringConverter"/>
+            <converter:RiskLevelToColorConverter x:Key="RiskColor" />
+            <converter:RiskLevelToSoftBackgroundConverter x:Key="RiskSoftBg" />
+            <converter:OnlineStatusToColorConverter x:Key="OnlineColor" />
+            <converter:HandledFlagToColorConverter x:Key="HandledColor" />
+            <converter:HandledFlagToSoftBackgroundConverter x:Key="HandledSoftBg" />
+            <converter:BoolToAccentColorConverter x:Key="ChipBg" />
+            <converter:BoolToOnAccentTextColorConverter x:Key="ChipFg" />
+            <converter:ColorToBrushConverter x:Key="ColorToBrush" />
         </ResourceDictionary>
-        <Style TargetType="listView:ListViewItem">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup>
-                        <VisualState x:Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="Background"
-                                Value="Transparent" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="PointerOver">
-                            <VisualState.Setters>
-                                <Setter Property="Background"
-                                Value= "Transparent" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
     </ContentPage.Resources>
 
-    <ContentPage.Content>
-        <ScrollView>
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
-                    WidthRequest="{OnPlatform WinUI=800, MacCatalyst=1000}">
+    <Grid x:Name="MonitoringRoot" RowDefinitions="Auto,*,Auto">
 
-                <!--  Rotator for travel places  -->
-                <rotator:SfRotator Grid.Row="0"
-                                   x:Name="sfRotator"
-                                   Margin="8,0"
-                                   BackgroundColor="Transparent"
-                                   DotPlacement="None"
-                                   HeightRequest="{OnPlatform WinUI=525, MacCatalyst=525, Default=320}"
-                                   DotsStroke="Transparent"
-                                   ItemsSource="{Binding TravelPlacesList}"
-                                   NavigationStripMode="Dots"
-                                   NavigationStripPosition="Bottom"
-                                   SelectedDotColor="{AppThemeBinding Light={DynamicResource PrimaryColorLight}, Dark={DynamicResource PrimaryColorDark}}"
-                                   UnselectedDotColor="{DynamicResource Gray-200}">
-                    <rotator:SfRotator.SelectedIndex>
-                        <Binding x:DataType="rotator:SfRotator" Path="SelectedIndex" Mode="TwoWay"/>
-                    </rotator:SfRotator.SelectedIndex>
-                    <rotator:SfRotator.ItemTemplate>
-                        <DataTemplate x:DataType="model:Travel">
-                            <Border WidthRequest="650"
-                                    Stroke="Transparent"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 10">
-                                <Grid
-                                    x:Name="grid"
-                                    RowDefinitions="Auto, Auto, Auto"
-                                    RowSpacing="0">
-
-                                    <!--  Image of the place  -->
-                                    <Image
-                                        Aspect="AspectFill"
-                                        BackgroundColor="{DynamicResource Gray-White}"
-                                        HeightRequest="{OnPlatform WinUI=395, MacCatalyst=395, Default=240}">
-                                        <Image.Source>
-                                            <UriImageSource
-                                                CacheValidity="14"
-                                                CachingEnabled="true"
-                                                Uri="{Binding ImagePath}"/>
-                                        </Image.Source>
-                                    </Image>
-
-                                    <!--  Travel place  -->
-                                    <Label
-                                        Grid.Row="1"
-                                        Margin="16,16,16,4"
-                                        HorizontalOptions="Start"
-                                        Style="{DynamicResource TitleLabelStyle}"
-                                        Text="{Binding Place}"/>
-
-                                    <!--  Details of travel place  -->
-                                    <Label WidthRequest="{OnPlatform Android=300, iOS=300}"
-                                           Grid.Row="2"
-                                           Margin="16,0,16,16"
-                                            MaxLines="2"
-                                            LineBreakMode="TailTruncation"
-                                            HorizontalOptions="Start"
-                                           FontSize="12"
-                                            HorizontalTextAlignment="Start"
-                                           Text="{Binding Details}"/>
-
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </rotator:SfRotator.ItemTemplate>
-                </rotator:SfRotator>
-
-                <Grid Grid.Row="1"
-                      Margin="16,23,8,10"
-                      ColumnSpacing="0"
-                      RowSpacing="0">
-                    <Label
-                        FontSize="22"
-                        HorizontalOptions="Start"
-                        Style="{DynamicResource TitleLabelStyle}"
-                        Text="Top Destinations"
-                        VerticalOptions="Center"/>
-                    <buttons:SfButton FontSize="12"
-                                      HorizontalOptions="End"
-                                      Style="{DynamicResource TransparentButtonStyle}"
-                                      Text="VIEW ALL"
-                                      FontFamily="Roboto-Regular"/>
-                </Grid>
-
-                <listView:SfListView Grid.Row="2"
-                                     Margin="8,0,0,0"
-                                     Padding="0"
-                                     AutoFitMode="Height"
-                                     HeightRequest="318"
-                                     HorizontalOptions="Center"
-                                     ScrollBarVisibility="Never"
-                                     IsStickyHeader="True"
-                                     ItemsSource="{Binding TopDestinationsList}"
-                                     Orientation="Horizontal"
-                                     SelectionBackground="Transparent">
-
-                    <listView:SfListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Travel">
-                            <Border
-                                Margin="8,0,8,35"
-                                Padding="0"
-                                BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}"
-                                Stroke="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 4"
-                                HeightRequest="276"
-                                WidthRequest="230">
-
-                                <syncEffectsView:SfEffectsView
-                                    RippleBackground="{DynamicResource Gray-300}"
-                                    TouchDownEffects="Ripple">
-                                    <Border
-                                        Stroke="Transparent"
-                                        StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 4,4,4,4">
-                                        <Grid RowDefinitions="Auto, Auto, Auto, Auto"
-                                              RowSpacing="0">
-
-                                            <!--  Place image  -->
-                                            <Image
-                                                Margin="0,0,0,16"
-                                                Aspect="AspectFill"
-                                                HeightRequest="150"
-                                                HorizontalOptions="Fill"
-                                                Source="{Binding ImagePath}"
-                                                VerticalOptions="Start"/>
-
-                                            <!--  OverLay Effect  -->
-                                            <Border
-                                                Margin="0,0,0,16"
-                                                BackgroundColor="{DynamicResource Gray-Black}"
-                                                Opacity="0.15"/>
-
-                                            <!--  Favourite Icon  -->
-                                            <buttons:SfButton
-                                                Margin="0,2,2,0"
-                                                HeightRequest="-1"
-                                                HorizontalOptions="End"
-                                                Style="{DynamicResource IconButtonStyle}"
-                                                Text="{Binding IsFavourite, Converter={StaticResource boolToStringConverter}, ConverterParameter=1}"
-                                                TextColor="{Binding IsFavourite, Converter={x:StaticResource boolToColorConverter}, ConverterParameter=2}"
-                                                Clicked="FavouriteButton_Clicked"
-                                                VerticalOptions="Start"
-                                                WidthRequest="-1"/>
-
-                                            <!--  Place name  -->
-                                            <Label
-                                                Grid.Row="1"
-                                                Margin="16,0,16,4"
-                                                HorizontalOptions="Start"
-                                                Style="{DynamicResource TitleLabelStyle}"
-                                                Text="{Binding Place}"/>
-
-                                            <!--  Place Details  -->
-                                            <Label
-                                                Grid.Row="2"
-                                                Margin="16,0,16,8"
-                                                FontSize="12"
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="TailTruncation"
-                                                MaxLines="2"
-                                                Style="{DynamicResource DescriptionLabelStyle}"
-                                                Text="{Binding Details}"/>
-
-                                            <!--  Price Details  -->
-                                            <Label
-                                                Grid.Row="3"
-                                                Margin="16,0,0,5"
-                                                HorizontalOptions="Start"
-                                                Style="{DynamicResource TitleLabelStyle}"
-                                                Text="{Binding Price}"
-                                                TextColor="{AppThemeBinding Light={DynamicResource PrimaryColorLight}, Dark={DynamicResource PrimaryColorDark}}"/>
-
-                                            <!--  Right arrow icon  -->
-                                            <buttons:SfButton
-                                                Grid.Row="3"
-                                                Margin="0,0,5,5"
-                                                CornerRadius="4"
-                                                FontSize="20"
-                                                HeightRequest="-1"
-                                                HorizontalOptions="End"
-                                                Style="{DynamicResource IconButtonStyle}"
-                                                Text="{DynamicResource ArrowRight}"
-                                                WidthRequest="-1"/>
-
-                                        </Grid>
-                                    </Border>
-
-                                </syncEffectsView:SfEffectsView>
-
-                            </Border>
-                        </DataTemplate>
-                    </listView:SfListView.ItemTemplate>
-                </listView:SfListView>
-
-                <Grid Grid.Row="3"
-                      Margin="16,0,8,10"
-                      ColumnSpacing="0"
-                      RowSpacing="0">
-                    <Label
-                        FontSize="22"
-                        HorizontalOptions="Start"
-                        Style="{DynamicResource TitleLabelStyle}"
-                        Text="Best Places"
-                        VerticalOptions="Center"/>
-                    <buttons:SfButton
-                        FontSize="12"
-                        HorizontalOptions="End"
-                        Style="{DynamicResource TransparentButtonStyle}"
-                        Text="VIEW ALL"
-                        FontFamily="Roboto-Regular"/>
-                </Grid>
-
-                <listView:SfListView Grid.Row="4"
-                                     Margin="8,0,0,0"
-                                     Padding="0"
-                                     AutoFitMode="Height"
-                                     HeightRequest="292"
-                                     HorizontalOptions="Center"
-                                     ScrollBarVisibility="Never"
-                                     IsStickyHeader="True"
-                                     ItemsSource="{Binding BestPlacesList}"
-                                     Orientation="Horizontal"
-                                     SelectionBackground="Transparent">
-                    <listView:SfListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Travel">
-                            <Border
-                                Margin="8,0,8,24"
-                                Padding="0"
-                                BackgroundColor="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}"
-                                Stroke="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 4"
-                                HeightRequest="250"
-                                WidthRequest="230">
-                                <syncEffectsView:SfEffectsView
-                                    RippleBackground="{DynamicResource Gray-300}"
-                                    TouchDownEffects="Ripple">
-                                    <Border
-                                        Stroke="Transparent"
-                                        StrokeThickness="0"
-                                        StrokeShape="RoundRectangle 4,4,4,4">
-                                        <Grid
-                                            ColumnSpacing="0"
-                                            HeightRequest="250"
-                                            RowSpacing="0"
-                                            WidthRequest="230">
-
-                                            <!--  Place image  -->
-                                            <Image
-                                                Aspect="AspectFill"
-                                                WidthRequest="230"
-                                                HorizontalOptions="Fill"
-                                                Source="{Binding ImagePath}"
-                                                VerticalOptions="Fill"/>
-
-                                            <!--  OverLay Effect  -->
-                                            <Border BackgroundColor="{DynamicResource Gray-Black}"
-                                                    Opacity="0.15"/>
-
-                                            <!--  Place name  -->
-                                            <Label
-                                                Margin="8,0,0,12"
-                                                HorizontalOptions="Start"
-                                                Style="{DynamicResource TitleLabelStyle}"
-                                                Text="{Binding Place}"
-                                                TextColor="{DynamicResource Gray-White}"
-                                                VerticalOptions="End"/>
-
-                                            <!--  Favourite Icon  -->
-                                            <buttons:SfButton
-                                                Margin="0,2,2,0"
-                                                HeightRequest="-1"
-                                                HorizontalOptions="End"
-                                                Style="{DynamicResource IconButtonStyle}"
-                                                Text="{Binding IsFavourite, Converter={StaticResource boolToStringConverter}, ConverterParameter=1}"
-                                                TextColor="{Binding IsFavourite, Converter={x:StaticResource boolToColorConverter}, ConverterParameter=2}"
-                                                Clicked="FavouriteButton_Clicked"
-                                                VerticalOptions="Start"
-                                                WidthRequest="-1"/>
-
-                                        </Grid>
-                                    </Border>
-                                </syncEffectsView:SfEffectsView>
-                            </Border>
-                        </DataTemplate>
-                    </listView:SfListView.ItemTemplate>
-                </listView:SfListView>
-
+        <!-- ===== AppBar ===== -->
+        <Border Grid.Row="0" Style="{DynamicResource CableAppBarBorderStyle}">
+            <Grid ColumnDefinitions="36,*,36">
+                <Label Grid.Column="0" Text="" />
+                <Label Grid.Column="1" Text="监测" Style="{DynamicResource CableAppBarTitleStyle}" />
+                <Label Grid.Column="2" Text="&#xe713;" Style="{DynamicResource CableAppBarIconStyle}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnScanTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
+        </Border>
+
+        <!-- ===== 主内容 ===== -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="12,12,12,12" Spacing="12">
+
+                <!-- 搜索栏 -->
+                <Grid ColumnDefinitions="*,44" ColumnSpacing="8">
+                    <Border BackgroundColor="{DynamicResource SurfaceCard}"
+                            Stroke="Transparent" StrokeThickness="0"
+                            StrokeShape="RoundRectangle 22"
+                            HeightRequest="44"
+                            Padding="14,0">
+                        <Grid ColumnDefinitions="20,*">
+                            <Label Text="&#xe705;" FontFamily="FontIcons" FontSize="16"
+                                   TextColor="{DynamicResource TextTertiary}"
+                                   VerticalOptions="Center" />
+                            <Entry Grid.Column="1"
+                                   Placeholder="搜索电缆名称或编号"
+                                   PlaceholderColor="{DynamicResource TextTertiary}"
+                                   TextColor="{DynamicResource TextPrimary}"
+                                   FontSize="14"
+                                   BackgroundColor="Transparent"
+                                   Text="{Binding SearchText, Mode=TwoWay}" />
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1"
+                            BackgroundColor="{DynamicResource SurfaceCard}"
+                            Stroke="Transparent" StrokeThickness="0"
+                            StrokeShape="RoundRectangle 22"
+                            HeightRequest="44" WidthRequest="44">
+                        <Label Text="&#xe702;" FontFamily="FontIcons" FontSize="16"
+                               TextColor="{DynamicResource TextSecondary}"
+                               HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+                <!-- 当前电缆卡 -->
+                <Border Style="{DynamicResource CableCardBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCurrentCableTapped" />
+                    </Border.GestureRecognizers>
+                    <VerticalStackLayout Spacing="6">
+                        <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                            <Label Text="{Binding CurrentCable.Name}"
+                                   FontFamily="Roboto-Medium" FontSize="16"
+                                   TextColor="{DynamicResource TextPrimary}"
+                                   VerticalOptions="Center" />
+                            <Border Grid.Column="1"
+                                    BackgroundColor="{Binding CurrentCable.Risk, Converter={StaticResource RiskSoftBg}}"
+                                    Style="{DynamicResource StatusChipBorderStyle}">
+                                <Label Text="{Binding CurrentCable.RiskText}"
+                                       Style="{DynamicResource StatusChipLabelStyle}"
+                                       TextColor="{Binding CurrentCable.Risk, Converter={StaticResource RiskColor}}" />
+                            </Border>
+                            <Label Grid.Column="2" Text="&#xe728;" FontFamily="FontIcons" FontSize="14"
+                                   TextColor="{DynamicResource TextTertiary}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                        <Label Text="{Binding CurrentCable.Location}" Style="{DynamicResource CableMetaTextStyle}" />
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                            <Label Text="{Binding CurrentCable.MonitoringTimeText}" Style="{DynamicResource CableMetaTextStyle}" />
+                            <HorizontalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                <Border BackgroundColor="{Binding CurrentCable.IsOnline, Converter={StaticResource OnlineColor}}"
+                                        StrokeThickness="0" Stroke="Transparent"
+                                        StrokeShape="RoundRectangle 4"
+                                        HeightRequest="8" WidthRequest="8"
+                                        VerticalOptions="Center" />
+                                <Label Text="在线" FontSize="12"
+                                       TextColor="{DynamicResource StatusNormal}"
+                                       VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Tab 选择条 -->
+                <tabView:SfTabView TabBarPlacement="Top"
+                                   IndicatorPlacement="Bottom"
+                                   TabBarHeight="44"
+                                   TabBarBackground="{DynamicResource SurfaceCard}"
+                                   IndicatorBackground="{DynamicResource PrimaryBlueBrush}"
+                                   SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+                    <tabView:SfTabView.Items>
+
+                        <!-- Tab 1：实时数据 -->
+                        <tabView:SfTabItem Header="实时数据"
+                                           FontSize="13"
+                                           FontAutoScalingEnabled="False">
+                            <tabView:SfTabItem.Content>
+                                <VerticalStackLayout Padding="0,12,0,0" Spacing="10"
+                                                     BindableLayout.ItemsSource="{Binding SensorReadings}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="cable:SensorReading">
+                                            <Border Style="{DynamicResource CableCardBorderStyle}" Padding="12">
+                                                <Grid ColumnDefinitions="44,*,Auto" ColumnSpacing="12">
+                                                    <Border BackgroundColor="{Binding IconBackground}"
+                                                            StrokeThickness="0" Stroke="Transparent"
+                                                            StrokeShape="RoundRectangle 22"
+                                                            HeightRequest="44" WidthRequest="44">
+                                                        <Label Text="{Binding IconGlyph}" FontFamily="FontIcons"
+                                                               FontSize="20" TextColor="White"
+                                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                                    </Border>
+                                                    <VerticalStackLayout Grid.Column="1" Spacing="4" VerticalOptions="Center">
+                                                        <Label Text="{Binding Name}"
+                                                               FontFamily="Roboto-Medium" FontSize="14"
+                                                               TextColor="{DynamicResource TextPrimary}" />
+                                                        <Label Text="{Binding Threshold}"
+                                                               FontFamily="Roboto-Regular" FontSize="11"
+                                                               TextColor="{DynamicResource TextSecondary}" />
+                                                    </VerticalStackLayout>
+                                                    <VerticalStackLayout Grid.Column="2" Spacing="4"
+                                                                         HorizontalOptions="End" VerticalOptions="Center">
+                                                        <HorizontalStackLayout Spacing="4" HorizontalOptions="End">
+                                                            <Label Text="{Binding Value}"
+                                                                   FontFamily="Roboto-Medium" FontSize="18"
+                                                                   TextColor="{DynamicResource TextPrimary}"
+                                                                   VerticalOptions="End" />
+                                                            <Label Text="{Binding Unit}"
+                                                                   FontFamily="Roboto-Regular" FontSize="12"
+                                                                   TextColor="{DynamicResource TextSecondary}"
+                                                                   VerticalOptions="End"
+                                                                   Margin="0,0,0,2" />
+                                                        </HorizontalStackLayout>
+                                                        <Border BackgroundColor="{Binding Status, Converter={StaticResource RiskSoftBg}}"
+                                                                Style="{DynamicResource StatusChipBorderStyle}"
+                                                                HorizontalOptions="End">
+                                                            <Label Text="{Binding StatusText}"
+                                                                   Style="{DynamicResource StatusChipLabelStyle}"
+                                                                   TextColor="{Binding Status, Converter={StaticResource RiskColor}}" />
+                                                        </Border>
+                                                    </VerticalStackLayout>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+
+                        <!-- Tab 2：趋势图 -->
+                        <tabView:SfTabItem Header="趋势图" FontSize="13" FontAutoScalingEnabled="False">
+                            <tabView:SfTabItem.Content>
+                                <VerticalStackLayout Padding="0,12,0,0" Spacing="12">
+
+                                    <!-- 指标切换 chip 行 -->
+                                    <ScrollView Orientation="Horizontal"
+                                                HorizontalScrollBarVisibility="Never">
+                                        <HorizontalStackLayout Spacing="8"
+                                                               BindableLayout.ItemsSource="{Binding TrendMetrics}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="cable:TrendMetric">
+                                                    <Border BackgroundColor="{Binding IsSelected, Converter={StaticResource ChipBg}}"
+                                                            Stroke="Transparent" StrokeThickness="0"
+                                                            StrokeShape="RoundRectangle 16"
+                                                            Padding="14,6">
+                                                        <Border.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding BindingContext.SelectTrendMetricCommand, Source={x:Reference MonitoringRoot}}"
+                                                                                  CommandParameter="{Binding}" />
+                                                        </Border.GestureRecognizers>
+                                                        <Label Text="{Binding Name}"
+                                                               FontFamily="Roboto-Medium" FontSize="12"
+                                                               TextColor="{Binding IsSelected, Converter={StaticResource ChipFg}}"
+                                                               VerticalOptions="Center" />
+                                                    </Border>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </HorizontalStackLayout>
+                                    </ScrollView>
+
+                                    <!-- 图表卡片 -->
+                                    <Border Style="{DynamicResource CableCardBorderStyle}" Padding="12">
+                                        <VerticalStackLayout Spacing="8">
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <Label Text="{Binding SelectedTrendMetric.Name, StringFormat='{0} 趋势'}"
+                                                       Style="{DynamicResource CableSectionTitleStyle}" />
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding SelectedTrendMetric.LatestValueText}"
+                                                       FontFamily="Roboto-Medium" FontSize="13"
+                                                       TextColor="{Binding SelectedTrendMetric.Color}"
+                                                       VerticalOptions="Center" />
+                                            </Grid>
+                                            <Label Style="{DynamicResource CableMetaTextStyle}"
+                                                   Text="{Binding SelectedTrendMetric.Unit, StringFormat='近 8 个时刻 · 单位 {0}'}" />
+
+                                            <chart:SfCartesianChart HeightRequest="220" BackgroundColor="Transparent">
+                                                <chart:SfCartesianChart.XAxes>
+                                                    <chart:CategoryAxis ShowMajorGridLines="False">
+                                                        <chart:CategoryAxis.LabelStyle>
+                                                            <chart:ChartAxisLabelStyle FontSize="10"
+                                                                                       TextColor="{DynamicResource TextTertiary}" />
+                                                        </chart:CategoryAxis.LabelStyle>
+                                                    </chart:CategoryAxis>
+                                                </chart:SfCartesianChart.XAxes>
+                                                <chart:SfCartesianChart.YAxes>
+                                                    <chart:NumericalAxis ShowMajorGridLines="True">
+                                                        <chart:NumericalAxis.LabelStyle>
+                                                            <chart:ChartAxisLabelStyle FontSize="10"
+                                                                                       TextColor="{DynamicResource TextTertiary}" />
+                                                        </chart:NumericalAxis.LabelStyle>
+                                                        <chart:NumericalAxis.MajorGridLineStyle>
+                                                            <chart:ChartLineStyle StrokeWidth="0.5"
+                                                                                  Stroke="{DynamicResource DividerLine}" />
+                                                        </chart:NumericalAxis.MajorGridLineStyle>
+                                                    </chart:NumericalAxis>
+                                                </chart:SfCartesianChart.YAxes>
+                                                <chart:SplineAreaSeries ItemsSource="{Binding SelectedTrendMetric.Points}"
+                                                                        XBindingPath="TimeText"
+                                                                        YBindingPath="Value"
+                                                                        Fill="{Binding SelectedTrendMetric.Color, Converter={StaticResource ColorToBrush}}"
+                                                                        Stroke="{Binding SelectedTrendMetric.Color, Converter={StaticResource ColorToBrush}}"
+                                                                        StrokeWidth="2"
+                                                                        Opacity="0.55"
+                                                                        EnableAnimation="True"
+                                                                        ShowMarkers="True"
+                                                                        EnableTooltip="True">
+                                                    <chart:SplineAreaSeries.MarkerSettings>
+                                                        <chart:ChartMarkerSettings Type="Circle"
+                                                                                   Width="6" Height="6"
+                                                                                   Fill="White"
+                                                                                   Stroke="{Binding SelectedTrendMetric.Color, Converter={StaticResource ColorToBrush}}"
+                                                                                   StrokeWidth="2" />
+                                                    </chart:SplineAreaSeries.MarkerSettings>
+                                                </chart:SplineAreaSeries>
+                                            </chart:SfCartesianChart>
+
+                                            <!-- Min / Avg / Max 统计条 -->
+                                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8" Margin="0,4,0,0">
+                                                <VerticalStackLayout Grid.Column="0" Spacing="2" HorizontalOptions="Center">
+                                                    <Label Text="最小" Style="{DynamicResource CableMetaTextStyle}" HorizontalOptions="Center" />
+                                                    <Label Text="{Binding SelectedTrendMetric.MinText}"
+                                                           FontFamily="Roboto-Medium" FontSize="13"
+                                                           TextColor="{DynamicResource TextPrimary}"
+                                                           HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="1" Spacing="2" HorizontalOptions="Center">
+                                                    <Label Text="平均" Style="{DynamicResource CableMetaTextStyle}" HorizontalOptions="Center" />
+                                                    <Label Text="{Binding SelectedTrendMetric.AvgText}"
+                                                           FontFamily="Roboto-Medium" FontSize="13"
+                                                           TextColor="{DynamicResource TextPrimary}"
+                                                           HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                                <VerticalStackLayout Grid.Column="2" Spacing="2" HorizontalOptions="Center">
+                                                    <Label Text="最大" Style="{DynamicResource CableMetaTextStyle}" HorizontalOptions="Center" />
+                                                    <Label Text="{Binding SelectedTrendMetric.MaxText}"
+                                                           FontFamily="Roboto-Medium" FontSize="13"
+                                                           TextColor="{DynamicResource TextPrimary}"
+                                                           HorizontalOptions="Center" />
+                                                </VerticalStackLayout>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+
+                        <!-- Tab 3：告警记录 -->
+                        <tabView:SfTabItem Header="告警记录" FontSize="13" FontAutoScalingEnabled="False">
+                            <tabView:SfTabItem.Content>
+                                <VerticalStackLayout Padding="0,12,0,0" Spacing="10"
+                                                     BindableLayout.ItemsSource="{Binding AlarmRecords}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="cable:MonitoringAlarmRecord">
+                                            <Border Style="{DynamicResource CableCardBorderStyle}" Padding="12">
+                                                <Grid ColumnDefinitions="4,*" ColumnSpacing="10">
+                                                    <!-- 风险色色条 -->
+                                                    <BoxView Grid.Column="0"
+                                                             BackgroundColor="{Binding Risk, Converter={StaticResource RiskColor}}"
+                                                             CornerRadius="2" />
+
+                                                    <VerticalStackLayout Grid.Column="1" Spacing="6">
+                                                        <Grid ColumnDefinitions="*,Auto">
+                                                            <Label Text="{Binding Title}"
+                                                                   FontFamily="Roboto-Medium" FontSize="14"
+                                                                   TextColor="{DynamicResource TextPrimary}" />
+                                                            <Border Grid.Column="1"
+                                                                    BackgroundColor="{Binding Risk, Converter={StaticResource RiskSoftBg}}"
+                                                                    Style="{DynamicResource StatusChipBorderStyle}">
+                                                                <Label Text="{Binding RiskText}"
+                                                                       Style="{DynamicResource StatusChipLabelStyle}"
+                                                                       TextColor="{Binding Risk, Converter={StaticResource RiskColor}}" />
+                                                            </Border>
+                                                        </Grid>
+
+                                                        <Label Text="{Binding Description}"
+                                                               FontFamily="Roboto-Regular" FontSize="12"
+                                                               TextColor="{DynamicResource TextSecondary}"
+                                                               LineBreakMode="WordWrap" />
+
+                                                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                                            <Label Text="&#xe70c;" FontFamily="FontIcons" FontSize="12"
+                                                                   TextColor="{DynamicResource TextTertiary}"
+                                                                   VerticalOptions="Center" />
+                                                            <Label Text="{Binding MeasuredText}"
+                                                                   FontFamily="Roboto-Regular" FontSize="12"
+                                                                   TextColor="{DynamicResource TextSecondary}"
+                                                                   VerticalOptions="Center" />
+                                                        </HorizontalStackLayout>
+
+                                                        <BoxView HeightRequest="1" Color="{DynamicResource DividerLine}" />
+
+                                                        <Grid ColumnDefinitions="*,Auto">
+                                                            <Label Text="{Binding Time}"
+                                                                   FontFamily="Roboto-Regular" FontSize="11"
+                                                                   TextColor="{DynamicResource TextTertiary}"
+                                                                   VerticalOptions="Center" />
+                                                            <Border Grid.Column="1"
+                                                                    BackgroundColor="{Binding IsHandled, Converter={StaticResource HandledSoftBg}}"
+                                                                    Style="{DynamicResource StatusChipBorderStyle}">
+                                                                <Label Text="{Binding HandleStatus}"
+                                                                       Style="{DynamicResource StatusChipLabelStyle}"
+                                                                       TextColor="{Binding IsHandled, Converter={StaticResource HandledColor}}" />
+                                                            </Border>
+                                                        </Grid>
+                                                    </VerticalStackLayout>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+
+                        <!-- Tab 4：设备信息 -->
+                        <tabView:SfTabItem Header="设备信息" FontSize="13" FontAutoScalingEnabled="False">
+                            <tabView:SfTabItem.Content>
+                                <VerticalStackLayout Padding="0,12,0,0" Spacing="12"
+                                                     BindableLayout.ItemsSource="{Binding DeviceInfoSections}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="cable:DeviceInfoSection">
+                                            <Border Style="{DynamicResource CableCardBorderStyle}" Padding="12">
+                                                <VerticalStackLayout Spacing="10">
+                                                    <!-- 分组头：图标 + 标题 -->
+                                                    <Grid ColumnDefinitions="32,*" ColumnSpacing="10">
+                                                        <Border BackgroundColor="{Binding IconBackground}"
+                                                                StrokeThickness="0" Stroke="Transparent"
+                                                                StrokeShape="RoundRectangle 16"
+                                                                HeightRequest="32" WidthRequest="32">
+                                                            <Label Text="{Binding IconGlyph}" FontFamily="FontIcons"
+                                                                   FontSize="16" TextColor="White"
+                                                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                                                        </Border>
+                                                        <Label Grid.Column="1" Text="{Binding Title}"
+                                                               Style="{DynamicResource CableSectionTitleStyle}" />
+                                                    </Grid>
+
+                                                    <!-- 条目列表 -->
+                                                    <VerticalStackLayout Spacing="0"
+                                                                         BindableLayout.ItemsSource="{Binding Entries}">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate x:DataType="cable:DeviceInfoEntry">
+                                                                <VerticalStackLayout>
+                                                                    <Grid ColumnDefinitions="*,Auto,Auto" Padding="0,10" ColumnSpacing="6">
+                                                                        <Label Text="{Binding Label}"
+                                                                               FontFamily="Roboto-Regular" FontSize="13"
+                                                                               TextColor="{DynamicResource TextSecondary}"
+                                                                               VerticalOptions="Center" />
+                                                                        <Border Grid.Column="1"
+                                                                                BackgroundColor="{Binding StatusDotColor}"
+                                                                                IsVisible="{Binding ShowStatusDot}"
+                                                                                StrokeThickness="0" Stroke="Transparent"
+                                                                                StrokeShape="RoundRectangle 4"
+                                                                                HeightRequest="8" WidthRequest="8"
+                                                                                VerticalOptions="Center" />
+                                                                        <Label Grid.Column="2" Text="{Binding Value}"
+                                                                               FontFamily="Roboto-Medium" FontSize="13"
+                                                                               TextColor="{DynamicResource TextPrimary}"
+                                                                               VerticalOptions="Center" />
+                                                                    </Grid>
+                                                                    <BoxView HeightRequest="1" Color="{DynamicResource DividerLine}" />
+                                                                </VerticalStackLayout>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </VerticalStackLayout>
+                                                </VerticalStackLayout>
+                                            </Border>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </VerticalStackLayout>
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                    </tabView:SfTabView.Items>
+                </tabView:SfTabView>
+
+            </VerticalStackLayout>
         </ScrollView>
-    </ContentPage.Content>
+
+        <!-- ===== 底部主按钮 ===== -->
+        <Border Grid.Row="2" Padding="12,8,12,12" BackgroundColor="{DynamicResource SurfacePage}"
+                Stroke="Transparent" StrokeThickness="0">
+            <buttons:SfButton Text="开始新一轮监测"
+                              Style="{DynamicResource CablePrimaryButtonStyle}"
+                              Clicked="OnStartMonitoringClicked" />
+        </Border>
+    </Grid>
 </ContentPage>

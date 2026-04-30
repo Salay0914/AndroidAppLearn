@@ -1,3 +1,6 @@
+using SF_HandheldTerminal.Services;
+using SF_HandheldTerminal.Views.Cable;
+
 namespace SF_HandheldTerminal.Views.Dashboard
 {
     public partial class Overview : ContentPage
@@ -7,11 +10,14 @@ namespace SF_HandheldTerminal.Views.Dashboard
             InitializeComponent();
         }
 
-        private void OnChipSelectionChanging(object sender, Syncfusion.Maui.Core.Chips.SelectionChangedEventArgs e)
+        private async void OnAlarmsViewAllTapped(object sender, TappedEventArgs e)
         {
-            // Access the ViewModel and call the function
-            var viewModel = (OverviewViewModel)BindingContext;
-            viewModel.ChipSelectionChanged(e);
+            await AppNavigation.PushAsync(new AlarmListPage());
+        }
+
+        private async void OnRecordsViewAllTapped(object sender, TappedEventArgs e)
+        {
+            await AppNavigation.PushAsync(new MonitorHistoryPage());
         }
     }
 }

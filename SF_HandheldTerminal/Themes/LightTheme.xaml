@@ -19,6 +19,7 @@
         <styles:RadioButtonStyles />
         <styles:SegmentedControlStyles />
         <styles:ComboBoxStyles />
+        <styles:CableTheme />
     </ResourceDictionary.MergedDictionaries>
 
     <Color x:Key="PrimaryDarkColor">#d0424f</Color>

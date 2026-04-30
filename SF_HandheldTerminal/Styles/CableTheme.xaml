@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+                    x:Class="SF_HandheldTerminal.Styles.CableTheme">
+
+    <!-- ===== 设计令牌：色板 ===== -->
+    <Color x:Key="PrimaryBlue">#1F3A6E</Color>
+    <Color x:Key="PrimaryBlueDeep">#142A55</Color>
+    <Color x:Key="HeroGradientStart">#1B3A6F</Color>
+    <Color x:Key="HeroGradientEnd">#1E4D8A</Color>
+    <Color x:Key="AccentBlue">#2F6FE0</Color>
+
+    <Color x:Key="StatusHigh">#E74C3C</Color>
+    <Color x:Key="StatusMedium">#F5A623</Color>
+    <Color x:Key="StatusNormal">#2BBF6E</Color>
+    <Color x:Key="StatusOffline">#9AA4B0</Color>
+
+    <Color x:Key="StatusHighSoft">#FDECEA</Color>
+    <Color x:Key="StatusMediumSoft">#FFF3DE</Color>
+    <Color x:Key="StatusNormalSoft">#E2F7EC</Color>
+    <Color x:Key="StatusOfflineSoft">#EEF1F4</Color>
+
+    <Color x:Key="SurfacePage">#F4F6FA</Color>
+    <Color x:Key="SurfaceCard">#FFFFFF</Color>
+    <Color x:Key="SurfaceMuted">#F0F3F8</Color>
+    <Color x:Key="DividerLine">#E5E8EE</Color>
+
+    <Color x:Key="TextPrimary">#1A2333</Color>
+    <Color x:Key="TextSecondary">#6B7280</Color>
+    <Color x:Key="TextTertiary">#9AA4B0</Color>
+    <Color x:Key="TextOnPrimary">#FFFFFF</Color>
+    <Color x:Key="TextOnPrimarySoft">#CFD7E6</Color>
+
+    <Color x:Key="DangerOutline">#E74C3C</Color>
+
+    <!-- ===== Brushes ===== -->
+    <SolidColorBrush x:Key="PrimaryBlueBrush" Color="{StaticResource PrimaryBlue}" />
+    <SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlue}" />
+    <SolidColorBrush x:Key="SurfaceCardBrush" Color="{StaticResource SurfaceCard}" />
+    <SolidColorBrush x:Key="SurfacePageBrush" Color="{StaticResource SurfacePage}" />
+
+    <LinearGradientBrush x:Key="HeroGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource HeroGradientStart}" Offset="0" />
+        <GradientStop Color="{StaticResource HeroGradientEnd}" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- ===== 卡片：白底圆角浅阴影 ===== -->
+    <Style x:Key="CableCardBorderStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource SurfaceCard}" />
+        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+        <Setter Property="Padding" Value="14" />
+    </Style>
+
+    <Style x:Key="HeroCardBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource HeroGradientBrush}" />
+        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <!-- ===== 文本样式 ===== -->
+    <Style x:Key="CableSectionTitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CableMetaTextStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Regular" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CableHeroTitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
+    </Style>
+
+    <Style x:Key="CableHeroSubtitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Regular" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{StaticResource TextOnPrimarySoft}" />
+    </Style>
+
+    <Style x:Key="CableLinkLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Regular" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="{StaticResource AccentBlue}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CableNumberStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CableNumberCaptionStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Regular" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- ===== Chip：状态徽章 ===== -->
+    <Style x:Key="StatusChipBorderStyle" TargetType="Border">
+        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 6" />
+        <Setter Property="Padding" Value="8,2" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="StatusChipLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- ===== 设置项行 ===== -->
+    <Style x:Key="SettingsGroupHeaderStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="Margin" Value="16,18,16,8" />
+    </Style>
+
+    <Style x:Key="SettingsItemTitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Regular" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="SettingsItemValueStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Regular" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{StaticResource TextSecondary}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="SettingsIconLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontIcons" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="TextColor" Value="{StaticResource AccentBlue}" />
+        <Setter Property="WidthRequest" Value="28" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="SettingsChevronLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontIcons" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="{StaticResource TextTertiary}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Text">&#xe728;</Setter>
+    </Style>
+
+    <!-- ===== AppBar ===== -->
+    <Style x:Key="CableAppBarBorderStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBlue}" />
+        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="Rectangle" />
+        <Setter Property="HeightRequest" Value="48" />
+        <Setter Property="Padding" Value="12,0" />
+    </Style>
+
+    <Style x:Key="CableAppBarTitleStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="CableAppBarIconStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="FontIcons" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="WidthRequest" Value="36" />
+        <Setter Property="HeightRequest" Value="36" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+    <!-- ===== 主按钮（开始监测） ===== -->
+    <Style x:Key="CablePrimaryButtonStyle" TargetType="buttons:SfButton">
+        <Setter Property="Background" Value="{StaticResource PrimaryBlueBrush}" />
+        <Setter Property="TextColor" Value="{StaticResource TextOnPrimary}" />
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HeightRequest" Value="44" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="CableDangerOutlineButtonStyle" TargetType="buttons:SfButton">
+        <Setter Property="Background" Value="{StaticResource SurfaceCardBrush}" />
+        <Setter Property="TextColor" Value="{StaticResource DangerOutline}" />
+        <Setter Property="Stroke" Value="{StaticResource DangerOutline}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="FontFamily" Value="Roboto-Medium" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HeightRequest" Value="44" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+    </Style>
+
+</ResourceDictionary>

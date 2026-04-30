@@ -70,8 +70,13 @@ public class LoginBehavior : Behavior<Login>
 
             vm.PersistRememberPreference(vm.ContactsInfo.Email);
 
-            if (Application.Current?.Windows.FirstOrDefault() is { } window)
-                window.Page = new MainTabPage();
+            if (Application.Current?.Windows.FirstOrDefault() is { } window) {
+                var nav = new NavigationPage(new MainTabPage());
+                NavigationPage.SetHasNavigationBar(nav.RootPage, false);
+                nav.BarBackgroundColor = Color.FromArgb("#1F3A6E");
+                nav.BarTextColor = Colors.White;
+                window.Page = nav;
+            }
         }
         finally
         {

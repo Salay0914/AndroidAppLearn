@@ -1,4 +1,5 @@
-using Syncfusion.Maui.Toolkit.Buttons;
+using SF_HandheldTerminal.Services;
+using SF_HandheldTerminal.Views.Cable;
 
 namespace SF_HandheldTerminal.Views.Catalog
 {
@@ -9,13 +10,22 @@ namespace SF_HandheldTerminal.Views.Catalog
             InitializeComponent();
         }
 
-        private void FavouriteButton_Clicked(object sender, EventArgs e)
+        private async void OnScanTapped(object sender, TappedEventArgs e)
         {
-            SfButton? button = sender as SfButton;
-            var travel = button?.BindingContext as SF_HandheldTerminal.Models.Catalog.Travel;
-            if (travel != null) {
-                travel.IsFavourite = !travel.IsFavourite;
-            }
+            await AppNavigation.PushAsync(new ScannerPage());
+        }
+
+        private async void OnCurrentCableTapped(object sender, TappedEventArgs e)
+        {
+            await AppNavigation.PushAsync(new CableDetailPage());
+        }
+
+        private async void OnStartMonitoringClicked(object sender, EventArgs e)
+        {
+            // 占位：等待业务接入
+            var window = Application.Current?.Windows.FirstOrDefault();
+            if (window?.Page is Page page)
+                await page.DisplayAlert("提示", "开始新一轮监测（占位）", "确定");
         }
     }
 }

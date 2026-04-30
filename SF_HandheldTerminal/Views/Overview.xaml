@@ -2,120 +2,250 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SF_HandheldTerminal.Views.Dashboard.Overview"
-             xmlns:listView="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
-             xmlns:controls="clr-namespace:SF_HandheldTerminal.Controls"
              xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:converter="clr-namespace:SF_HandheldTerminal.Converters"
+             xmlns:cable="clr-namespace:SF_HandheldTerminal.Models.Cable"
              xmlns:local="clr-namespace:SF_HandheldTerminal"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
-             xmlns:segmentedControl="clr-namespace:Syncfusion.Maui.Toolkit.SegmentedControl;assembly=Syncfusion.Maui.Toolkit"
-             Title="Health Care">
+             x:DataType="local:OverviewViewModel"
+             BackgroundColor="{DynamicResource SurfacePage}"
+             Title="概览">
+
     <ContentPage.BindingContext>
         <local:OverviewViewModel />
     </ContentPage.BindingContext>
-    <ContentPage.Content>
-        <StackLayout>
-            <Grid RowDefinitions="{OnPlatform WinUI='*', MacCatalyst='*'}" VerticalOptions="{OnPlatform Default= 'FillAndExpand'}" ColumnDefinitions="*" HorizontalOptions="Fill" Background="{AppThemeBinding Light={DynamicResource BackgroundColorLight}, Dark={DynamicResource BackgroundColorDark}}">
-                <ScrollView Grid.Row="{OnPlatform WinUI='0', MacCatalyst='0'}">
-                    <Grid ColumnDefinitions="{OnPlatform WinUI='Auto, 3*', MacCatalyst='Auto, 2*'}" RowDefinitions="*" VerticalOptions="Fill">
 
-                        <Grid x:DataType="local:OverviewViewModel" Grid.Column="{OnPlatform WinUI='2',MacCatalyst='2'}" Grid.Row="{OnPlatform Android='0', iOS='0'}" VerticalOptions="Fill" HorizontalOptions="{OnPlatform WinUI=End, MacCatalyst=End, Android=Start}" Margin="{OnPlatform WinUI='0,0,10,0', MacCatalyst='0,0,10,0'}">
-                            <BoxView HorizontalOptions="Start" VerticalOptions="Fill" Color="{AppThemeBinding Light={DynamicResource SeparatorColorLight}, Dark={DynamicResource SeparatorColorDark}}" />
-                            <Grid RowDefinitions="{OnPlatform WinUI='*,*',MacCatalyst='Auto,*', Android='Auto,*', iOS='Auto,*'}" RowSpacing="0">
-                                <Grid Grid.Row="0" RowDefinitions="{OnPlatform WinUI='*,*', MacCatalyst='*,*'}">
-                                    <HorizontalStackLayout Grid.Row="0" VerticalOptions="Start" IsVisible="{OnPlatform Android=False, iOS=False}">
-                                        <Label Text="Tracking" FontSize="22" FontFamily="Roboto-Regular" TextColor="{AppThemeBinding Light={DynamicResource PrimaryTextColorLight}, Dark={DynamicResource PrimaryTextColorDark}}" HeightRequest="28" Margin="16,16,0,16"></Label>
-                                    </HorizontalStackLayout>
-                                    <Grid Grid.Row="1" RowDefinitions="*,*" ColumnDefinitions="*,*" HorizontalOptions="Fill" VerticalOptions="{OnPlatform WinUI='StartAndExpand',MacCatalyst='Start', Android='FillAndExpand', iOS='FillAndExpand'}" Margin="{OnPlatform WinUI='8,0,0,0',MacCatalyst='8,0,0,0', Android='0,16,0,0', iOS='0,16,0,0'}">
-                                        <Border  BindingContext="{Binding TrackingNutrientData[0]}" Grid.Row="0" Grid.Column="0" Margin='16,0,8,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="{OnPlatform Android=136, iOS=136}">
-                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="*" VerticalOptions="Fill">
-                                                <Grid Padding="0"  RowDefinitions="2*,1*,1*">
-                                                    <Grid.Background>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                            <GradientStop Color="#9F60FD" Offset="0" />
-                                                            <GradientStop Color="#D957BC" Offset="1" />
-                                                        </LinearGradientBrush>
-                                                    </Grid.Background>
-                                                    <Label Text="&#xe700;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
-                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25,iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
-                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
-                                                </Grid>
-                                            </Grid>
-                                        </Border>
-                                        <Border BindingContext="{Binding TrackingNutrientData[1]}" Grid.Row="0" Grid.Column="1" Margin='8,0,16,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="{OnPlatform Android=136, iOS=136}">
-                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="{OnPlatform WinUI='Auto',MacCatalyst='Auto', Android='*', iOS='*'}" VerticalOptions="Fill">
-                                                <Grid Padding="0"  RowDefinitions="Auto,Auto,Auto">
-                                                    <Grid.Background>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                            <GradientStop Color="#6DB0FF" Offset="0" />
-                                                            <GradientStop Color="#6957D9" Offset="1" />
-                                                        </LinearGradientBrush>
-                                                    </Grid.Background>
-                                                    <Label Text="&#xe704;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
-                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
-                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
-                                                </Grid>
-                                            </Grid>
-                                        </Border>
-                                        <Border BindingContext="{Binding TrackingNutrientData[2]}" Grid.Row="1" Grid.Column="0" Margin='16,0,8,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="{OnPlatform Android=136, iOS=136}">
-                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="{OnPlatform WinUI='Auto',MacCatalyst='Auto', Android='*', iOS='*'}" VerticalOptions="Fill">
-                                                <Grid Padding="0"  RowDefinitions="Auto,Auto,Auto">
-                                                    <Grid.Background>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                            <GradientStop Color="#FFAD4E" Offset="0" />
-                                                            <GradientStop Color="#D942B8" Offset="1" />
-                                                        </LinearGradientBrush>
-                                                    </Grid.Background>
-                                                    <Label Text="&#xe70a;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
-                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
-                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
-                                                </Grid>
-                                            </Grid>
-                                        </Border>
-                                        <Border BindingContext="{Binding TrackingNutrientData[3]}" Grid.Row="1" Grid.Column="1" Margin='8,0,16,16' Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 4,4,4,4" HeightRequest="{OnPlatform Android=136, iOS=136}" HorizontalOptions="Fill" VerticalOptions="Fill">
-                                            <Grid x:DataType="local:HealthCareModel" RowDefinitions="{OnPlatform WinUI='Auto',MacCatalyst='Auto', Android='*', iOS='*'}" VerticalOptions="Fill">
-                                                <Grid Padding="0"  RowDefinitions="Auto,Auto,Auto">
-                                                    <Grid.Background>
-                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                                            <GradientStop Color="#14E983" Offset="0" />
-                                                            <GradientStop Color="#0F9292" Offset="1" />
-                                                        </LinearGradientBrush>
-                                                    </Grid.Background>
-                                                    <Label Text="&#xe70b;" FontFamily="DashboardFontIcons" Padding="2"  Grid.Row="0" HeightRequest="42" WidthRequest="42" FontSize="42" TextColor="{DynamicResource Gray-White}" Margin="0,10,0,0" />
-                                                    <Label Padding="2" Grid.Row="1" FontFamily="Roboto-Regular" FontSize="22" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding CategoryValue}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" />
-                                                    <Label Padding="2" Grid.Row="2" FontFamily="Roboto-Regular" FontSize="14" LineHeight="{OnPlatform Android=1.25, iOS=1.25, Default=-1}" Text="{Binding Category}" TextColor="{DynamicResource Gray-White}" HorizontalOptions="Center" Margin="0,0,0,10" />
-                                                </Grid>
-                                            </Grid>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:RiskLevelToColorConverter x:Key="RiskColor" />
+            <converter:RiskLevelToSoftBackgroundConverter x:Key="RiskSoftBg" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="12,12,12,16" Spacing="12">
+
+            <!-- ===== Hero ===== -->
+            <Border Style="{DynamicResource HeroCardBorderStyle}" HeightRequest="160">
+                <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,Auto">
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="6" VerticalOptions="Start">
+                        <Label Text="{Binding HeroTitle}" Style="{DynamicResource CableHeroTitleStyle}" />
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="{Binding HeroGreeting}" Style="{DynamicResource CableHeroSubtitleStyle}" />
+                            <Label Text="&#xe70b;" FontFamily="FontIcons" FontSize="12"
+                                   TextColor="{DynamicResource TextOnPrimarySoft}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding HeroSubtitle}"
+                           Style="{DynamicResource CableHeroSubtitleStyle}" Margin="0,8,0,0" />
+
+                    <!-- 右侧设备示意（占位用 FontIcon 圆形头像） -->
+                    <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                            BackgroundColor="#33000000"
+                            StrokeThickness="0"
+                            Stroke="Transparent"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="14"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            HeightRequest="92"
+                            WidthRequest="72">
+                        <Label Text="&#xe71c;" FontFamily="FontIcons" FontSize="40"
+                               TextColor="{DynamicResource TextOnPrimary}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ===== 设备状态概览 ===== -->
+            <Border Style="{DynamicResource CableCardBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="设备状态概览" Style="{DynamicResource CableSectionTitleStyle}" />
+                        <Label Grid.Column="1" Text="&#xe703;" FontFamily="FontIcons" FontSize="16"
+                               TextColor="{DynamicResource TextSecondary}"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Label Text="{Binding StatusSummary.UpdatedAtText}" Style="{DynamicResource CableMetaTextStyle}" />
+
+                    <FlexLayout Direction="Row" Wrap="NoWrap"
+                                AlignItems="Start" JustifyContent="SpaceBetween"
+                                Margin="0,4,0,0"
+                                BindableLayout.ItemsSource="{Binding StatusSummary.Items}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="cable:DeviceStatusItem">
+                                <VerticalStackLayout Spacing="6"
+                                                     HorizontalOptions="Center"
+                                                     FlexLayout.Basis="25%">
+                                    <Border BackgroundColor="{Binding IconBackground}"
+                                            Stroke="Transparent" StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 22"
+                                            HeightRequest="44" WidthRequest="44"
+                                            HorizontalOptions="Center">
+                                        <Label Text="{Binding IconGlyph}" FontFamily="FontIcons"
+                                               FontSize="20" TextColor="White"
+                                               HorizontalOptions="Center" VerticalOptions="Center" />
+                                    </Border>
+                                    <Label Text="{Binding Count}" Style="{DynamicResource CableNumberStyle}" />
+                                    <Label Text="{Binding Name}" Style="{DynamicResource CableNumberCaptionStyle}" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ===== 电缆健康状态 ===== -->
+            <Border Style="{DynamicResource CableCardBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="电缆健康状态" Style="{DynamicResource CableSectionTitleStyle}" />
+
+                    <Grid ColumnDefinitions="160,*" ColumnSpacing="14" HeightRequest="160">
+
+                        <!-- 环形图 -->
+                        <Grid Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                            <chart:SfCircularChart HeightRequest="160" WidthRequest="160" BackgroundColor="Transparent">
+                                <chart:SfCircularChart.Series>
+                                    <chart:DoughnutSeries ItemsSource="{Binding HealthBreakdown.Items}"
+                                                          XBindingPath="Name"
+                                                          YBindingPath="Percentage"
+                                                          InnerRadius="0.72"
+                                                          ShowDataLabels="False">
+                                        <chart:DoughnutSeries.PaletteBrushes>
+                                            <SolidColorBrush Color="#2BBF6E" />
+                                            <SolidColorBrush Color="#F5A623" />
+                                            <SolidColorBrush Color="#E74C3C" />
+                                        </chart:DoughnutSeries.PaletteBrushes>
+                                    </chart:DoughnutSeries>
+                                </chart:SfCircularChart.Series>
+                            </chart:SfCircularChart>
+                            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="0">
+                                <Label Text="{Binding HealthBreakdown.HealthScore, StringFormat='{0}%'}"
+                                       FontFamily="Roboto-Medium" FontSize="24"
+                                       TextColor="{DynamicResource TextPrimary}"
+                                       HorizontalOptions="Center" />
+                                <Label Text="健康度"
+                                       FontFamily="Roboto-Regular" FontSize="11"
+                                       TextColor="{DynamicResource TextSecondary}"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- 图例 -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center"
+                                             BindableLayout.ItemsSource="{Binding HealthBreakdown.Items}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="cable:HealthBreakdownItem">
+                                    <Grid ColumnDefinitions="14,*,Auto" ColumnSpacing="8">
+                                        <Border BackgroundColor="{Binding Color}"
+                                                StrokeThickness="0" Stroke="Transparent"
+                                                StrokeShape="RoundRectangle 6"
+                                                HeightRequest="10" WidthRequest="10"
+                                                VerticalOptions="Center" />
+                                        <Label Grid.Column="1" Text="{Binding Name}"
+                                               FontFamily="Roboto-Regular" FontSize="13"
+                                               TextColor="{DynamicResource TextPrimary}"
+                                               VerticalOptions="Center" />
+                                        <Label Grid.Column="2" Text="{Binding PercentageText}"
+                                               FontFamily="Roboto-Regular" FontSize="13"
+                                               TextColor="{DynamicResource TextSecondary}"
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ===== 最新告警 ===== -->
+            <Border Style="{DynamicResource CableCardBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Label Text="&#xe700;" FontFamily="FontIcons" FontSize="14"
+                               TextColor="{DynamicResource StatusHigh}"
+                               VerticalOptions="Center" />
+                        <Label Grid.Column="1" Text="最新告警" Style="{DynamicResource CableSectionTitleStyle}" Margin="6,0,0,0" />
+                        <Label Grid.Column="2" Text="查看全部 ›"
+                               Style="{DynamicResource CableLinkLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnAlarmsViewAllTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding LatestAlarms}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="cable:AlarmRecord">
+                                <Border BackgroundColor="{Binding Risk, Converter={StaticResource RiskSoftBg}}"
+                                        Stroke="Transparent" StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 8"
+                                        Padding="10,8">
+                                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                                        <Label Text="{Binding CableName}"
+                                               FontFamily="Roboto-Medium" FontSize="13"
+                                               TextColor="{DynamicResource TextPrimary}"
+                                               VerticalOptions="Center" />
+                                        <Label Grid.Column="1" Text="{Binding Description}"
+                                               FontFamily="Roboto-Regular" FontSize="13"
+                                               TextColor="{DynamicResource TextSecondary}"
+                                               VerticalOptions="Center" />
+                                        <Border Grid.Column="2"
+                                                BackgroundColor="{Binding Risk, Converter={StaticResource RiskColor}}"
+                                                Style="{DynamicResource StatusChipBorderStyle}">
+                                            <Label Text="{Binding RiskText}"
+                                                   Style="{DynamicResource StatusChipLabelStyle}"
+                                                   TextColor="White" />
                                         </Border>
                                     </Grid>
-                                </Grid>
-                                <Grid Grid.Row="1" Margin="{OnPlatform WinUI='8,0,0,0',MacCatalyst='8,0,0,0'}">
-                                    <listView:SfListView Grid.Row="1" IsScrollingEnabled="False" ItemSize="80" ItemsSource="{Binding TrackingData}" SelectionMode="None">
-                                        <listView:SfListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Border x:DataType="local:HealthCareModel" HeightRequest="72" Stroke="{AppThemeBinding Light={DynamicResource SeparatorColorLight}, Dark={DynamicResource BackgroundColorDark}}" StrokeThickness="2" StrokeShape="RoundRectangle 4,4,4,4" BackgroundColor="{AppThemeBinding Dark={DynamicResource BackgroundColorDark}, Light={DynamicResource BackgroundColorLight}}" Margin="16,0,16,0">
-                                                    <Border.Shadow>
-                                                        <!-- First Shadow -->
-                                                        <Shadow Brush="#000000" Offset="0,1" Radius="3" Opacity="0.15" />
-                                                    </Border.Shadow>
-                                                    <Grid ColumnDefinitions="Auto,*">
-                                                        <BoxView BackgroundColor="{Binding BackgroundGradientStart}" CornerRadius="4,0,4,0" HorizontalOptions="Center" WidthRequest="4"  HeightRequest="72" />
-                                                        <Grid Grid.Column="1" RowDefinitions="*, *" ColumnDefinitions="*,Auto" VerticalOptions="Fill" HorizontalOptions="Fill" Margin="8,0,8,0">
-                                                            <Label Grid.Row="0" Grid.Column="0" LineHeight="1.5" CharacterSpacing="0.15" HorizontalTextAlignment="Start" Text="{Binding Category}" FontFamily="Roboto-Medium" Margin="0,10,0,0" />
-                                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding CategoryValue}" VerticalOptions="Center" HorizontalOptions="End" FontFamily="Roboto-Medium" LineHeight="1.5" CharacterSpacing="0.15" Margin="0,10,0,0" />
-                                                            <Label Grid.Row="1" Grid.Column="0" FontAttributes="None"  LineHeight="1.42857" TextColor="{AppThemeBinding Light={DynamicResource ContentTextColorLight}, Dark={DynamicResource ContentTextColorDark}}" CharacterSpacing="0.25" HorizontalTextAlignment="Start" Text="{Binding CategoryPercentage}" FontFamily="Roboto-Medium" Margin="0,0,0,10" />
-                                                            <Label Grid.Row="1" Grid.Column="1" FontAttributes="None" LineHeight="1.42857" Text="{Binding CategoryStage}" CharacterSpacing="0.25" HorizontalOptions="End" FontFamily="Roboto-Medium" Margin="0,0,0,10" TextColor="{Binding CategoryStageColor}" />
-                                                        </Grid>
-                                                    </Grid>
-                                                </Border>
-                                            </DataTemplate>
-                                        </listView:SfListView.ItemTemplate>
-                                    </listView:SfListView>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- ===== 最近监测记录 ===== -->
+            <Border Style="{DynamicResource CableCardBorderStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Text="最近监测记录" Style="{DynamicResource CableSectionTitleStyle}" />
+                        <Label Grid.Column="1" Text="查看全部 ›"
+                               Style="{DynamicResource CableLinkLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRecordsViewAllTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </Grid>
-                </ScrollView>
-            </Grid>
-        </StackLayout>
-    </ContentPage.Content>
+
+                    <VerticalStackLayout Spacing="6" BindableLayout.ItemsSource="{Binding RecentRecords}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="cable:MonitoringRecord">
+                                <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="10" Padding="0,6">
+                                    <Label Text="{Binding CableName}"
+                                           FontFamily="Roboto-Medium" FontSize="13"
+                                           TextColor="{DynamicResource TextPrimary}"
+                                           VerticalOptions="Center" />
+                                    <Border Grid.Column="1"
+                                            BackgroundColor="{Binding Risk, Converter={StaticResource RiskSoftBg}}"
+                                            Style="{DynamicResource StatusChipBorderStyle}">
+                                        <Label Text="{Binding StatusText}"
+                                               Style="{DynamicResource StatusChipLabelStyle}"
+                                               TextColor="{Binding Risk, Converter={StaticResource RiskColor}}" />
+                                    </Border>
+                                    <Label Grid.Column="2" Text="{Binding Time}"
+                                           FontFamily="Roboto-Regular" FontSize="12"
+                                           TextColor="{DynamicResource TextTertiary}"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

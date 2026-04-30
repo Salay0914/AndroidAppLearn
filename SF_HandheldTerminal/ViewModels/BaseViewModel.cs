@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace SF_HandheldTerminal.ViewModel
 {
-    public class BaseViewModel
+    public class BaseViewModel : INotifyPropertyChanged
     {
         #region Fields
 
